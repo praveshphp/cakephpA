@@ -122,27 +122,84 @@ class ItemsController extends AppController {
 
             // Looking up multiple items
             $response = $amazonEcs->responseGroup('Large,Variations,Reviews,Accessories,Offers')->optionalParameters(array('Condition' => 'New'))->lookup('B00L8WT2UI');
-            debug($response->Items->Item);
-            $item['Item']['ASIN']=$response->Items->Item->ASIN;
-            $item['Item']['SalesRank']=$response->Items->Item->SalesRank;
-            $item['Item']['DetailPageURL']=$response->Items->Item->DetailPageURL;
-            $item['Item']['CustomerReviews']=$response->Items->Item->CustomerReviews->IFrameURL;
-            $item['Item']['HasReviews']=$response->Items->Item->CustomerReviews->HasReviews;
-            $item['Item']['browsenode_id']=$response->Items->Item->BrowseNodes->BrowseNode->BrowseNodeId;
-            
-            
-            debug($item);
-           
-            
-            if ($this->Item->save($item)) {
+            // debug($response->Items->Item);
+            $conditions = array('Item.ASIN' => $response->Items->Item->ASIN);
+            $data = $this->Item->find('first',
+                    array('conditions' => $conditions));
+            debug($data);
+            exit;
+            $item['Item']['ASIN'] = $response->Items->Item->ASIN;
+            $item['Item']['SalesRank'] = $response->Items->Item->SalesRank;
+            $item['Item']['DetailPageURL'] = $response->Items->Item->DetailPageURL;
+            $item['Item']['CustomerReviews'] = $response->Items->Item->CustomerReviews->IFrameURL;
+            $item['Item']['HasReviews'] = $response->Items->Item->CustomerReviews->HasReviews;
+            $item['Item']['browsenode_id'] = $response->Items->Item->BrowseNodes->BrowseNode->BrowseNodeId;
+
+
+            /* ItemAttribute */
+            $this->loadModel('ItemBrand');
+            $brand_id = $this->ItemBrand->insertBrand($response->Items->Item->ItemAttributes->Brand);
+            $item['ItemAttribute'][0]['item_brand_id'] = $brand_id;
+            $this->loadModel('ItemBinding');
+            $item_binding_id = $this->ItemBinding->insertBinding($response->Items->Item->ItemAttributes->Binding);
+            $item['ItemAttribute'][0]['item_binding_id'] = $item_binding_id;
+            $item['ItemAttribute'][0]['Color'] = $response->Items->Item->ItemAttributes->Color;
+            $item['ItemAttribute'][0]['EAN'] = $response->Items->Item->ItemAttributes->EAN;
+            $item['ItemAttribute'][0]['Label'] = $response->Items->Item->ItemAttributes->Label;
+            $item['ItemAttribute'][0]['LegalDisclaimer'] = $response->Items->Item->ItemAttributes->LegalDisclaimer;
+            $item['ItemAttribute'][0]['Manufacturer'] = $response->Items->Item->ItemAttributes->Manufacturer;
+            $item['ItemAttribute'][0]['Model'] = $response->Items->Item->ItemAttributes->Model;
+            $item['ItemAttribute'][0]['MPN'] = $response->Items->Item->ItemAttributes->MPN;
+            $item['ItemAttribute'][0]['OperatingSystem'] = $response->Items->Item->ItemAttributes->OperatingSystem;
+            $item['ItemAttribute'][0]['PackageQuantity'] = $response->Items->Item->ItemAttributes->PackageQuantity;
+            $item['ItemAttribute'][0]['PartNumber'] = $response->Items->Item->ItemAttributes->PartNumber;
+            $item['ItemAttribute'][0]['ProductGroup'] = $response->Items->Item->ItemAttributes->ProductGroup;
+            $item['ItemAttribute'][0]['ProductTypeName'] = $response->Items->Item->ItemAttributes->ProductTypeName;
+            $item['ItemAttribute'][0]['Publisher'] = $response->Items->Item->ItemAttributes->Publisher;
+            $item['ItemAttribute'][0]['Studio'] = $response->Items->Item->ItemAttributes->Studio;
+            $item['ItemAttribute'][0]['Title'] = $response->Items->Item->ItemAttributes->Title;
+            $item['ItemAttribute'][0]['Warranty'] = $response->Items->Item->ItemAttributes->Warranty;
+            /* ItemAttribute */
+            //debug($item);exit;
+
+            /* ItemImage */
+            foreach ($response->Items->Item->ImageSets->ImageSet as $iskey => $is) {
+                $item['ItemImage'][$iskey]['SwatchImage'] = $is->SwatchImage->URL;
+                $item['ItemImage'][$iskey]['SmallImage'] = $is->SmallImage->URL;
+                $item['ItemImage'][$iskey]['ThumbnailImage'] = $is->ThumbnailImage->URL;
+                $item['ItemImage'][$iskey]['TinyImage'] = $is->TinyImage->URL;
+                $item['ItemImage'][$iskey]['MediumImage'] = $is->MediumImage->URL;
+                $item['ItemImage'][$iskey]['LargeImage'] = $is->LargeImage->URL;
+            }
+            /* ItemImage */
+            /* ItemFeature */
+            foreach ($response->Items->Item->ItemAttributes->Feature as $fkey => $f) {
+                $item['ItemFeature'][$fkey]['Feature'] = $f;
+            }
+            /* ItemFeature */
+            /* ItemDimension */
+            $item['ItemDimension'][0]['Height'] = $response->Items->Item->ItemAttributes->ItemDimensions->Height->_;
+            $item['ItemDimension'][0]['Length'] = $response->Items->Item->ItemAttributes->ItemDimensions->Length->_;
+            $item['ItemDimension'][0]['Weight'] = $response->Items->Item->ItemAttributes->ItemDimensions->Weight->_;
+            $item['ItemDimension'][0]['Width'] = $response->Items->Item->ItemAttributes->ItemDimensions->Width->_;
+            $item['ItemDimension'][0]['Height_unit'] = $response->Items->Item->ItemAttributes->ItemDimensions->Height->Units;
+            $item['ItemDimension'][0]['Length_unit'] = $response->Items->Item->ItemAttributes->ItemDimensions->Length->Units;
+            $item['ItemDimension'][0]['Weight_unit'] = $response->Items->Item->ItemAttributes->ItemDimensions->Weight->Units;
+            $item['ItemDimension'][0]['Width_unit'] = $response->Items->Item->ItemAttributes->ItemDimensions->Width->Units;
+            /* ItemDimension */
+
+
+
+
+            if ($this->Item->saveAll($item)) {
                 $this->Session->setFlash(__('The item has been saved.'));
                 return $this->redirect(array('action' => 'index'));
             } else {
                 $this->Session->setFlash(__('The item could not be saved. Please, try again.'));
             }
-             exit;
-            
-            
+
+
+            exit;
 
             $response = $amazonEcs->responseGroup('Images')->lookup('B00ITO43DY');
 
