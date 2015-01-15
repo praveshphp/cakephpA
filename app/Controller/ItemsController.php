@@ -108,11 +108,14 @@ class ItemsController extends AppController {
         return $this->redirect(array('action' => 'index'));
     }
 
-    public function admin_cron() {
+    public function admin_cron($asin='') {
 
         // echo AWS_API_KEY;exit;
         App::import('Vendor', 'AmazonECS/AmazonECS');
         try {
+            if(empty($asin)){
+                $asin='B00L8WT2UI';
+            }
             // get a new object with your API Key and secret key.
             // Added in version 1.0 is the new optional parameter to set up an AssociateTag (AssociateID)
             $amazonEcs = new AmazonECS(AWS_API_KEY, AWS_API_SECRET_KEY, 'IN',
@@ -121,13 +124,12 @@ class ItemsController extends AppController {
             $amazonEcs->associateTag(AWS_ASSOCIATE_TAG);
 
             // Looking up multiple items
-            $response = $amazonEcs->responseGroup('Large,Variations,Reviews,Accessories,Offers')->optionalParameters(array('Condition' => 'New'))->lookup('B00L8WT2UI');
-            // debug($response->Items->Item);
+            $response = $amazonEcs->responseGroup('Large,Variations,Reviews,Accessories,Offers')->optionalParameters(array('Condition' => 'New'))->lookup($asin);
+           //  debug($response->Items->Item);
             $conditions = array('Item.ASIN' => $response->Items->Item->ASIN);
             $data = $this->Item->find('first',
                     array('conditions' => $conditions));
-            debug($data);
-            exit;
+           
             $item['Item']['ASIN'] = $response->Items->Item->ASIN;
             $item['Item']['SalesRank'] = $response->Items->Item->SalesRank;
             $item['Item']['DetailPageURL'] = $response->Items->Item->DetailPageURL;
@@ -188,7 +190,7 @@ class ItemsController extends AppController {
             $item['ItemDimension'][0]['Width_unit'] = $response->Items->Item->ItemAttributes->ItemDimensions->Width->Units;
             /* ItemDimension */
 
-
+debug($response->Items->Item);exit;
 
 
             if ($this->Item->saveAll($item)) {
@@ -210,17 +212,7 @@ class ItemsController extends AppController {
             echo $e->getMessage();
         }
 
-        if ("cli" !== PHP_SAPI) {
-            echo "</pre>";
-        }
-        try {
-            $this->render(implode('/', $path));
-        } catch (MissingViewException $e) {
-            if (Configure::read('debug')) {
-                throw $e;
-            }
-            throw new NotFoundException();
-        }
+       
         exit;
 
 

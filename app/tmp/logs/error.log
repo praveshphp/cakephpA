@@ -156,3 +156,18 @@ Stack Trace:
 #6 /var/www/cakephpA/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ItemsController), Object(CakeRequest))
 #7 /var/www/cakephpA/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #8 {main}
+2015-01-15 15:28:31 Error: [MissingViewException] View file "/var/www/cakephpA/app/View/Items/admin_cron.ctp" is missing.
+Exception Attributes: array (
+  'file' => '/var/www/cakephpA/app/View/Items/admin_cron.ctp',
+)
+Request URL: /cakephpA/admin/items/cron/B00FGOT7DG
+Stack Trace:
+#0 /var/www/cakephpA/lib/Cake/View/View.php(468): View->_getViewFileName(NULL)
+#1 /var/www/cakephpA/lib/Cake/Controller/Controller.php(954): View->render(NULL, NULL)
+#2 /var/www/cakephpA/app/Controller/ItemsController.php(219): Controller->render(NULL)
+#3 [internal function]: ItemsController->admin_cron('B00FGOT7DG')
+#4 /var/www/cakephpA/lib/Cake/Controller/Controller.php(490): ReflectionMethod->invokeArgs(Object(ItemsController), Array)
+#5 /var/www/cakephpA/lib/Cake/Routing/Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#6 /var/www/cakephpA/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ItemsController), Object(CakeRequest))
+#7 /var/www/cakephpA/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
