@@ -283,3 +283,72 @@ Request URL: /cakephpA/PhpStorm-506b42e1-b9d6-41b6-9dc2-a462fad1c632.php
 Stack Trace:
 #0 /var/www/html/cakephpA/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+2015-03-05 12:30:48 Error: [MissingControllerException] Controller class GetIdController could not be found.
+Exception Attributes: array (
+  'class' => 'GetIdController',
+  'plugin' => NULL,
+)
+Request URL: /cakephpA/admin/getId
+Stack Trace:
+#0 /var/www/html/cakephpA/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-03-05 12:35:21 Error: [MissingViewException] View file "/var/www/html/cakephpA/app/View/Items/admin_get_id.ctp" is missing.
+Exception Attributes: array (
+  'file' => '/var/www/html/cakephpA/app/View/Items/admin_get_id.ctp',
+)
+Request URL: /cakephpA/admin/items/getId
+Stack Trace:
+#0 /var/www/html/cakephpA/lib/Cake/View/View.php(468): View->_getViewFileName(NULL)
+#1 /var/www/html/cakephpA/lib/Cake/Controller/Controller.php(954): View->render(NULL, NULL)
+#2 /var/www/html/cakephpA/lib/Cake/Routing/Dispatcher.php(198): Controller->render()
+#3 /var/www/html/cakephpA/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ItemsController), Object(CakeRequest))
+#4 /var/www/html/cakephpA/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2015-03-05 12:38:49 Error: [MissingViewException] View file "/var/www/html/cakephpA/app/View/Items/admin_get_id.ctp" is missing.
+Exception Attributes: array (
+  'file' => '/var/www/html/cakephpA/app/View/Items/admin_get_id.ctp',
+)
+Request URL: /cakephpA/admin/items/getId
+Stack Trace:
+#0 /var/www/html/cakephpA/lib/Cake/View/View.php(468): View->_getViewFileName(NULL)
+#1 /var/www/html/cakephpA/lib/Cake/Controller/Controller.php(954): View->render(NULL, NULL)
+#2 /var/www/html/cakephpA/lib/Cake/Routing/Dispatcher.php(198): Controller->render()
+#3 /var/www/html/cakephpA/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ItemsController), Object(CakeRequest))
+#4 /var/www/html/cakephpA/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2015-03-05 14:03:12 Error: [MissingViewException] View file "/var/www/html/cakephpA/app/View/Items/admin_get_id.ctp" is missing.
+Exception Attributes: array (
+  'file' => '/var/www/html/cakephpA/app/View/Items/admin_get_id.ctp',
+)
+Request URL: /cakephpA/admin/items/getId
+Stack Trace:
+#0 /var/www/html/cakephpA/lib/Cake/View/View.php(468): View->_getViewFileName(NULL)
+#1 /var/www/html/cakephpA/lib/Cake/Controller/Controller.php(954): View->render(NULL, NULL)
+#2 /var/www/html/cakephpA/lib/Cake/Routing/Dispatcher.php(198): Controller->render()
+#3 /var/www/html/cakephpA/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ItemsController), Object(CakeRequest))
+#4 /var/www/html/cakephpA/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2015-03-05 15:15:40 Error: [MissingViewException] View file "/var/www/html/cakephpA/app/View/Items/admin_get_id.ctp" is missing.
+Exception Attributes: array (
+  'file' => '/var/www/html/cakephpA/app/View/Items/admin_get_id.ctp',
+)
+Request URL: /cakephpA/admin/items/getId
+Stack Trace:
+#0 /var/www/html/cakephpA/lib/Cake/View/View.php(468): View->_getViewFileName(NULL)
+#1 /var/www/html/cakephpA/lib/Cake/Controller/Controller.php(954): View->render(NULL, NULL)
+#2 /var/www/html/cakephpA/lib/Cake/Routing/Dispatcher.php(198): Controller->render()
+#3 /var/www/html/cakephpA/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ItemsController), Object(CakeRequest))
+#4 /var/www/html/cakephpA/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2015-03-05 15:18:40 Error: [MissingViewException] View file "/var/www/html/cakephpA/app/View/Items/admin_get_id.ctp" is missing.
+Exception Attributes: array (
+  'file' => '/var/www/html/cakephpA/app/View/Items/admin_get_id.ctp',
+)
+Request URL: /cakephpA/admin/items/getId
+Stack Trace:
+#0 /var/www/html/cakephpA/lib/Cake/View/View.php(468): View->_getViewFileName(NULL)
+#1 /var/www/html/cakephpA/lib/Cake/Controller/Controller.php(954): View->render(NULL, NULL)
+#2 /var/www/html/cakephpA/lib/Cake/Routing/Dispatcher.php(198): Controller->render()
+#3 /var/www/html/cakephpA/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(ItemsController), Object(CakeRequest))
+#4 /var/www/html/cakephpA/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
